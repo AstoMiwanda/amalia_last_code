@@ -1,0 +1,22 @@
+// page-create-surat-tugas {}
+
+/* DOES NOT WORK - not specific enough */
+ion-loading {
+    color: rgba(255, 0, 0, 0.872);
+  }
+  
+  /* Works - pass "my-custom-class" in cssClass to increase specificity */
+  .my-custom-class {
+    background: #e5e5e5;
+  }
+
+  .my-custom-class {
+    --background: #222;
+    --spinner-color: #fff;
+  
+    color: #fff;
+  }
+  .alert-wrapper {
+    background: #e5e5e5;
+    color: rgb(34, 34, 34);
+  }

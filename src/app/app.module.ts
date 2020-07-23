@@ -40,6 +40,7 @@ import { ModalNikBawahanPage } from '../pages/modal-nik-bawahan/modal-nik-bawaha
 import { MitraPage } from '../pages/mitra/mitra';
 import { SignaturePage } from '../pages/signature/signature';
 import { DenahPage } from '../pages/denah/denah';
+import { CreateSuratTugasPage } from '../pages/create-surat-tugas/create-surat-tugas';
 import { HTTP } from '@ionic-native/http';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 
@@ -69,7 +70,8 @@ import { StarRatingModule } from 'ionic3-star-rating';
     ChoserPage,
     ListWoPage,
     CreateWoPage,
-    ModalNikBawahanPage
+    ModalNikBawahanPage,
+    CreateSuratTugasPage
   ],
   imports: [
     StarRatingModule,
@@ -99,7 +101,8 @@ import { StarRatingModule } from 'ionic3-star-rating';
     ChoserPage,
     ListWoPage,
     CreateWoPage,
-    ModalNikBawahanPage
+    ModalNikBawahanPage,
+    CreateSuratTugasPage
   ],
   providers: [
   ScreenOrientation,
