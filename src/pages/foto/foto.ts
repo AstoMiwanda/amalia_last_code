@@ -48,6 +48,7 @@ export class FotoPage {
  isian: any = 'nok';
  pilihan: any;
  loader: any;
+ bangunan: any
 
  lat_1: any;
  lat_2: any;
@@ -144,7 +145,7 @@ nama_foto: any;
         this.storage.get('nik').then((val) => {
         	this.nik = val
         	this.showConfirmFoto();
-          
+
           var date = new Date();
 
 	        var year = date.getFullYear();
@@ -158,6 +159,7 @@ nama_foto: any;
 	        this.storage.get('data').then((val) => {
               this.data = val;
               this.nama_foto = val.no_permintaan+"_"+this.nik+".png";
+              this.bangunan = val.bangunan
 	          });
 
 	          this.storage.get('data2').then((val) => {
@@ -173,9 +175,9 @@ nama_foto: any;
 	            console.log('con', val);
 	            this.data4 = val;
 	          });
-			
+
 	        this.koordinat();
-			 
+
         })
 
         this.storage.get("data2").then((val)=>{
@@ -207,7 +209,7 @@ nama_foto: any;
 
         return year+"-"+month+"-"+day+" "+hours+":"+minutes
   }
-   
+
 	take(index_foto){
 		let options: CameraOptions = {
 		  quality: 10,
@@ -225,18 +227,18 @@ nama_foto: any;
      let nama_foto = index_foto+"_"+this.nama_foto
 		 let filename = imageData.substring(imageData.lastIndexOf('/')+1);
     	 let path =  imageData.substring(0,imageData.lastIndexOf('/')+1);
-    	 
+
        this.loading()
     	 this.file.readAsDataURL(path, filename).then((res)=>{
-    	 	
+
     	 	this.upload(nama_foto,imageData,res,index_foto)
 
-    	 	
+
     	 });
 
 
 		 let base64Image = 'data:image/jpeg;base64,' + imageData;
-		
+
 
 		}, (err) => {
 		 // Handle error
@@ -260,7 +262,7 @@ nama_foto: any;
   // sendPostRequest(data,nama){
   //    var link = 'http://amalia.telkomakses.co.id/upload_base64_2.php';
   //    var myData = JSON.stringify({data: data,nama: nama});
-     
+
   //    console.log(myData);
   //    this.http.post(link, myData)
   //    .subscribe(data => {
@@ -281,9 +283,9 @@ nama_foto: any;
               var nama_ori = filePath.split("/");
               var index_path  = nama_ori.length;
               if(
-                nama_ori[index_path-1].indexOf(".jpg") > 0  || 
-                nama_ori[index_path-1].indexOf(".jpeg") > 0 || 
-                nama_ori[index_path-1].indexOf(".png") > 0 || 
+                nama_ori[index_path-1].indexOf(".jpg") > 0  ||
+                nama_ori[index_path-1].indexOf(".jpeg") > 0 ||
+                nama_ori[index_path-1].indexOf(".png") > 0 ||
                 nama_ori[index_path-1].indexOf(".PNG") > 0 ||
                 nama_ori[index_path-1].indexOf(".JPG") > 0 ||
                 nama_ori[index_path-1].indexOf(".JPEG") > 0 ||
@@ -293,7 +295,7 @@ nama_foto: any;
                   this.nama_file = nama_ori[index_path-1];
                  //this.nama_file = index_foto+"_"+this.nama_foto
 		    	 let path =  filePath.substring(0,filePath.lastIndexOf('/')+1);
-		    	 
+
 		    	 this.file.readAsDataURL(path, this.nama_file).then((res)=>{
 		    	 	this.loading()
 		    	 	//this.img1 = res
@@ -323,7 +325,7 @@ nama_foto: any;
       };
 
       setTimeout(() => {
-        
+
           if(this.uploading == "nok"){
             this.timeout = "ok"
             alert("upload gagal coba untuk upload ulang")
@@ -331,12 +333,12 @@ nama_foto: any;
           }
 
       }, 20000);
-     
+
       var url = "https://amalia.telkomakses.co.id/upload_foto.php";
       const fileTransfer: FileTransferObject = this.transfer.create();
       //Use the FileTransfer to upload the image
       fileTransfer.upload(path, url, options).then(data => {
-        
+
         if(this.timeout == "nok"){
           this.uploading = "ok"
           if(index_foto == "1"){
@@ -414,11 +416,11 @@ nama_foto: any;
           }
 
 
-          this.loader.dismiss(); 
+          this.loader.dismiss();
 
         }
-           
-      
+
+
       }, err => {});
 
     }
@@ -439,7 +441,7 @@ nama_foto: any;
           text: 'Pilih Foto',
           handler: () => {
             this.pilihan = "2";
-            
+
           }
         }
       ]
@@ -451,13 +453,13 @@ nama_foto: any;
   	this.loader = this.loadingCtrl.create({
   		content: "please Wait.."
   	})
-  	// execute loading 
+  	// execute loading
   	this.loader.present();
   }
 
 
   showConfirm() {
-    
+
     // if(this.psb == '3' || this.psb == '7' || this.migrasi == '8' || this.migrasi == '6' || this.migrasi == '14' || this.migrasi == '16' || this.migrasi == '9' || this.migrasi == '21' || this.migrasi == '3' || this.migrasi == '2' ){
     //   if(this.img9 == 'icon_camera.png'){
     //     alert("Foto harus lengkap")
@@ -542,15 +544,15 @@ nama_foto: any;
 
         }
 
-        
+
 
           this.storage.set('data6',data5);
           this.loading()
           this.storage.get('data2').then(val =>{
             var parse =  JSON.stringify(val)
             var data_5 = JSON.stringify(data5);
-            console.log(this.uri.uri_api_alista+"amalia_app/check_foto.php?data="+data_5+"&parse="+parse)
-            this.http.get(this.uri.uri_api_alista+"amalia_app/check_foto.php?data="+data_5+"&parse="+parse)
+            console.log(this.uri.uri_api_alista+"amalia_app/check_foto.php?data="+data_5+"&parse="+parse+"&denah="+this.bangunan)
+            this.http.get(this.uri.uri_api_alista+"amalia_app/check_foto.php?data="+data_5+"&parse="+parse+"&denah="+this.bangunan)
             .timeout(10000)
             .map(res => res.json())
             .subscribe(data => {
@@ -567,19 +569,19 @@ nama_foto: any;
              })
           })
         }
-    
+
             // var js = JSON.stringify(this.data);
             // var js2 = JSON.stringify(this.data2);
             // var js3 = JSON.stringify(this.data3);
             // var js4 = JSON.stringify(this.data4);
             // var js5 = JSON.stringify(data5);
-            
+
             // var ini = this.uri.uri_api_alista+"amalia_app/put_data_pemakaian2.php?halaman1="+js+"&halaman2="+
             // js2+"&halaman3="+js3
             // +"&halaman4="+js4
             // +"&halaman5="+js5
             // +"&versi="+
-            // this.uri.versi; 
+            // this.uri.versi;
             // this.http.get(ini)
             //   .map(res => res.json())
             //   .subscribe(data => {

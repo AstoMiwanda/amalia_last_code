@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams , ModalController ,LoadingController ,AlertController } from 'ionic-angular';
-import { Storage } from '@ionic/storage' 
+import { Storage } from '@ionic/storage'
 import { SignaturePage } from '../signature/signature'
 import { Http,Headers,RequestOptions } from '@angular/http';
 import { UriProvider } from "../../providers/uri/uri";
@@ -78,7 +78,7 @@ export class ResumePage {
        })
 
        this.storage.get('data2').then((val)=>{
-         
+
         if(val.psb != undefined && val.psb > 0){
           if(val.psb == "4"){
             this.type_layanan = "1P [Voice Only]"
@@ -97,28 +97,28 @@ export class ResumePage {
             this.type_layanan = "Infrastruktur"
           }else if(val.migrasi == "11"){
             this.type_layanan = "Infrastruktur 1P-1P [Voice ]"
-          
+
           }else if(val.migrasi == "13"){
             this.type_layanan = "Layanan 1P-2P [Voice + Internet]"
-          
+
           }else if(val.migrasi == "15"){
             this.type_layanan = "Infrastruktur 2P-2P [Voice + Internet]"
-          
+
           }else if(val.migrasi == "8"){
             this.type_layanan = "Infrastruktur 2P-3P"
-          
+
           }else if(val.migrasi == "6"){
             this.type_layanan = "Infrastruktur 1P-3P"
-          
+
           }else if(val.migrasi == "12"){
             this.type_layanan = "Infrastruktur 1P-1P [Internet]"
-          
+
           }else if(val.migrasi == "14"){
             this.type_layanan = "Infrastruktur 1P - 2P [Internet + UseeTv]"
-          
+
           }else if(val.migrasi == "16"){
             this.type_layanan = "Infrastruktur 2P - 2P [Internet + UseeTv]"
-          
+
           }else if(val.migrasi == "9"){
             this.type_layanan = "Infrastruktur 3P - 3P"
           }else if(val.migrasi == "20"){
@@ -137,7 +137,7 @@ export class ResumePage {
             this.type_layanan = "STB Tambahan"
           }else if(val.tambahan == "3"){
             this.type_layanan = "PLC"
-          
+
           }else if(val.tambahan == "4"){
             this.type_layanan = "Wifi Extender"
           }
@@ -203,7 +203,7 @@ export class ResumePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ResumePage');
   }
-  
+
   actionBack(){
 		this.navCtrl.pop();
 	}
@@ -236,14 +236,14 @@ loading(){
   this.loader = this.loadingCtrl.create({
     content: "please Wait.."
   })
-  // execute loading 
+  // execute loading
   this.loader.present();
 }
 
 sendPostRequest(data,nama){
   var link = 'https://amalia.telkomakses.co.id/upload_base64.php';
   var myData = JSON.stringify({data: data,nama: nama});
-  
+
   console.log(myData);
   this.http.post(link, myData)
   .subscribe(data => {
@@ -286,7 +286,7 @@ actionPut(){
           var js4 = JSON.stringify(this.data4);
           var js5 = JSON.stringify(this.data5);
           var js6 = JSON.stringify(this.data6);
-          
+
           var ini = this.uri.uri_api_alista+"amalia_app/put_data_pemakaian2_testing.php?halaman1="+js+"&halaman2="+
           js2+"&halaman3="+js3
           +"&halaman4="+js4
@@ -298,7 +298,8 @@ actionPut(){
           +"&ttd2="+this.nama_signature+"_2_"+this.sum_mitra+".png"
           +"&tempat_ttd="+this.tempat_ttd
           +"&nik="+this.nik
-          +"&versi="+this.uri.versi; 
+          +"&versi="+this.uri.versi
+          +"&denah_comment="+data.bangunan;
           console.log(ini)
           this.http.get(ini)
             .map(res => res.json())
@@ -355,11 +356,11 @@ loadNameJabatan(){
     console.log("dari api",data);
     this.nama_teknisi = data.name
     this.foto = data.foto
-   
+
   });
 }
 
 
-  
+
 
 }
