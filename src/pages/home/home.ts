@@ -45,7 +45,7 @@ export class HomePage {
 	val_in: any;
 	public nol: number = 0;
   modeKeys: any[];
-  working_type: any
+  working_type: any = "ASSURANCE"
 
   loader: any;
   data_wo: Array<{id_barang: string,stok: string,satuan: string}>;
@@ -406,7 +406,6 @@ export class HomePage {
     }
 
     validateNoWO(val: any) {
-      console.log(val);
       console.log("asto azza: "+val.value);
       console.log(this.working_type);
 
