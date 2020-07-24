@@ -37,8 +37,10 @@ export class FotoPage {
  img8: any = "icon_camera.png";
  img9: any = "icon_camera.png";
  img10: any = "icon_camera.png";
+ img11: any = "icon_camera.png";
+ img12: any = "icon_camera.png";
 
- nama_foto: any= "-";
+ nama_foo: any= "-";
  path: any;
  nik: any = "";
  deg1: any = "90deg";
@@ -46,7 +48,6 @@ export class FotoPage {
  isian: any = 'nok';
  pilihan: any;
  loader: any;
-
 
  lat_1: any;
  lat_2: any;
@@ -58,6 +59,8 @@ export class FotoPage {
  lat_8: any;
  lat_9: any;
  lat_10: any;
+ lat_11: any;
+ lat_12: any;
 
  long_1: any;
  long_2: any;
@@ -69,6 +72,8 @@ export class FotoPage {
  long_8: any;
  long_9: any;
  long_10: any;
+ long_11: any;
+ long_12: any;
 
  date_1: any;
  date_2: any;
@@ -80,6 +85,8 @@ export class FotoPage {
  date_8: any;
  date_9: any;
  date_10: any;
+ date_11: any;
+ date_12: any;
 
  name_1: any;
  name_2: any;
@@ -91,6 +98,8 @@ export class FotoPage {
  name_8: any;
  name_9: any;
  name_10: any;
+ name_11: any;
+ name_12: any;
 
 data: any;
 data2: any;
@@ -99,6 +108,7 @@ data4: any;
 
 psb:any;
 migrasi:any;
+nama_foto: any;
 
 // nik: any;
 
@@ -200,7 +210,7 @@ migrasi:any;
    
 	take(index_foto){
 		let options: CameraOptions = {
-		  quality: 50,
+		  quality: 10,
 			allowEdit: true,
 			saveToPhotoAlbum: true,
 			correctOrientation: true,
@@ -212,14 +222,14 @@ migrasi:any;
 		this.camera.getPicture(options).then((imageData) => {
 		 // imageData is either a base64 encoded string or a file URI
      // If it's base64 (DATA_URL):
-     this.nama_foto = index_foto+"_"+this.nama_foto
+     let nama_foto = index_foto+"_"+this.nama_foto
 		 let filename = imageData.substring(imageData.lastIndexOf('/')+1);
     	 let path =  imageData.substring(0,imageData.lastIndexOf('/')+1);
     	 
        this.loading()
     	 this.file.readAsDataURL(path, filename).then((res)=>{
     	 	
-    	 	this.upload(this.nama_foto,imageData,res,index_foto)
+    	 	this.upload(nama_foto,imageData,res,index_foto)
 
     	 	
     	 });
@@ -247,20 +257,20 @@ migrasi:any;
   	}
   }
 
-  sendPostRequest(data,nama){
-     var link = 'http://amalia.telkomakses.co.id/upload_base64_2.php';
-     var myData = JSON.stringify({data: data,nama: nama});
+  // sendPostRequest(data,nama){
+  //    var link = 'http://amalia.telkomakses.co.id/upload_base64_2.php';
+  //    var myData = JSON.stringify({data: data,nama: nama});
      
-     console.log(myData);
-     this.http.post(link, myData)
-     .subscribe(data => {
-     	alert("sending success : "+data)
-     }, error => {
-      alert(error);
-      // this.loader.dismiss();
-     console.log("Oooops!");
-     });
-   }
+  //    console.log(myData);
+  //    this.http.post(link, myData)
+  //    .subscribe(data => {
+  //    	alert("sending success : "+data)
+  //    }, error => {
+  //     alert(error);
+  //     // this.loader.dismiss();
+  //    console.log("Oooops!");
+  //    });
+  //  }
 
    fileGet(index_foto){
       this.fileChooser.open()
@@ -358,7 +368,7 @@ migrasi:any;
             this.date_5 = this.getDate()
             this.lat_5 = this.latitude
             this.long_5 = this.longitude
-            this.name_5 = this.nik+"_"+nama
+            this.name_5 = nama
            }else if(index_foto == "6"){
                this.img6 = res
             this.date_6 = this.getDate()
@@ -382,14 +392,27 @@ migrasi:any;
           this.date_9 = this.getDate()
           this.lat_9 = this.latitude
           this.long_9 = this.longitude
-          this.name_9 = this.nik+"_"+nama
+          this.name_9 = nama
           }else if(index_foto == "10"){
             this.img10 = res
             this.date_10 = this.getDate()
             this.lat_10 = this.latitude
             this.long_10 = this.longitude
             this.name_10 = nama
+          }else if(index_foto == "11"){
+            this.img11 = res
+            this.date_11 = this.getDate()
+            this.lat_11 = this.latitude
+            this.long_11 = this.longitude
+            this.name_11 = nama
+          }else if(index_foto == "12"){
+            this.img12 = res
+            this.date_12 = this.getDate()
+            this.lat_12 = this.latitude
+            this.long_12 = this.longitude
+            this.name_12 = nama
           }
+
 
           this.loader.dismiss(); 
 
@@ -474,6 +497,8 @@ migrasi:any;
             name_8:this.name_8,
             name_9:this.name_9,
             name_10:this.name_10,
+            name_11:this.name_11,
+            name_12:this.name_12,
 
             lat_1:this.lat_1,
             lat_2:this.lat_2,
@@ -485,6 +510,8 @@ migrasi:any;
             lat_8:this.lat_8,
             lat_9:this.lat_9,
             lat_10:this.lat_10,
+            lat_11:this.lat_11,
+            lat_12:this.lat_12,
 
             long_1:this.long_1,
             long_2:this.long_2,
@@ -496,6 +523,8 @@ migrasi:any;
             long_8:this.long_8,
             long_9:this.long_9,
             long_10:this.long_10,
+            long_11:this.long_11,
+            long_12:this.long_12,
 
             date_1:this.date_1,
             date_2:this.date_2,
@@ -507,6 +536,8 @@ migrasi:any;
             date_8:this.date_8,
             date_9:this.date_9,
             date_10:this.date_10,
+            date_11:this.date_11,
+            date_12:this.date_12,
             pilihan:this.pilihan,
 
         }
@@ -536,10 +567,6 @@ migrasi:any;
              })
           })
         }
-
-          
-
-          
     
             // var js = JSON.stringify(this.data);
             // var js2 = JSON.stringify(this.data2);

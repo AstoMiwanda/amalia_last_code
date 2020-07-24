@@ -124,15 +124,16 @@
   </ion-item>
 
 
-  <ion-item *ngIf="disabled_no_telfon !='ok'">
+  <!-- <ion-item *ngIf="disabled_no_telfon !='ok'"> -->
+  <ion-item >
     <ion-label stacked><font color="black">No Telepon Layanan</font></ion-label>
     <ion-input  placeholder="Tulis sesuatu" [(ngModel)]="no_telepon"  type="number" style="color:grey"></ion-input>
   </ion-item>
 
-  <ion-item *ngIf="disabled_no_telfon =='ok'">
+  <!-- <ion-item *ngIf="disabled_no_telfon =='ok'">
     <ion-label stacked><font color="black">No Telepon Layanan</font></ion-label>
     <ion-input disabled placeholder="Tulis sesuatu" [(ngModel)]="no_telepon"  type="number" style="color:grey"></ion-input>
-  </ion-item>
+  </ion-item> -->
 
   <!-- <ion-item *ngIf="no_telepon_val == ''">
       <ion-label stacked><font color="black">No Telepon Layanan</font></ion-label>

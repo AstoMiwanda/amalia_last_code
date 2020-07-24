@@ -287,7 +287,7 @@ actionPut(){
           var js5 = JSON.stringify(this.data5);
           var js6 = JSON.stringify(this.data6);
           
-          var ini = this.uri.uri_api_alista+"amalia_app/put_data_pemakaian2.php?halaman1="+js+"&halaman2="+
+          var ini = this.uri.uri_api_alista+"amalia_app/put_data_pemakaian2_testing.php?halaman1="+js+"&halaman2="+
           js2+"&halaman3="+js3
           +"&halaman4="+js4
           +"&halaman5="+js5

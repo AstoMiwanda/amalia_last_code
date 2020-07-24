@@ -62,7 +62,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     
     storage.get('session').then((val) => {
-        if(val == 'oke' || true) {
+        if(val == 'oke') {
             this.pages = [
               { title: 'Update Material Alista', component: HomePage },
               { title: 'List Stok Barang', component: ListWoPage },
@@ -76,13 +76,13 @@ export class MyApp {
               //this.rootPage = FotoPage;
               // this.rootPage = FotoPage;
               this.rootPage = PemakaianPage;
+              // this.rootPage = ResumePage;
+          } else {
+              console.log('login', val);
+              // this.rootPage = FotoPage;
+               this.rootPage = LoginPage;
+              // this.rootPage = ResumePage;
           }
-          // else {
-          //     console.log('login', val);
-          //     //this.rootPage = FotoPage;
-          //      this.rootPage = LoginPage;
-          //     //this.rootPage = ResumePage;
-          // }
     });
   }
 

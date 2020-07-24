@@ -187,9 +187,11 @@ export class PemakaianPage {
 					   this.disabled_nama = "ok"
 				   }
 
-				   if(data.data.no_telfon != ""){
+				   if((data.data.no_telfon).trim != ""){
 					this.disabled_no_telfon = "ok"
 				   }
+
+				//    alert(data.data.no_telfon)
 
 				   if(data.data.alamat != ""){
 					this.disabled_alamat_pelanggan = "ok"
@@ -198,6 +200,9 @@ export class PemakaianPage {
 				   if(data.data.no_inet != ""){
 					   this.disabled = "ok"
 				   }
+				   
+   
+				   
 				   
 				}
 
