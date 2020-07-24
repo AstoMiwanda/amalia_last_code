@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController,Platform } from 'ionic-angular';
 import { Http,Headers,RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { AlertController } from 'ionic-angular';	
+import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Events } from 'ionic-angular';
 
@@ -44,8 +44,9 @@ export class HomePage {
   optionsList: Array<{ value: number, text: string, checked: boolean }> = [];
 	val_in: any;
 	public nol: number = 0;
-	modeKeys: any[];
-	
+  modeKeys: any[];
+  working_type: any
+
   loader: any;
   data_wo: Array<{id_barang: string,stok: string,satuan: string}>;
   count_wo: any;
@@ -67,7 +68,7 @@ export class HomePage {
   public TransferObject: FileTransferObject,
   private transfer: FileTransfer,
   private device: Device,
-  public uri: UriProvider,  
+  public uri: UriProvider,
 	public alertCtrl: AlertController)
 	{
 
@@ -117,7 +118,7 @@ export class HomePage {
           this.loading();
           this.submitAction();
         }
-      } 
+      }
     }catch(err) {}
   }
 
@@ -125,23 +126,23 @@ export class HomePage {
   	// create header content
   	let headers = new Headers({
   		'Content-Type' : 'application/x-www-form-urlencoded'
-  	});	
+  	});
 
-  	// create option 
+  	// create option
   	let requestOptions = new RequestOptions({
   		headers : headers
   	});
 
-  		var id_barang = []; 	
-  		var stok = []; 		 
-  		var satuan = []; 	 
-  		var volume = [];	
-  		var wo_number = [];  
+  		var id_barang = [];
+  		var stok = [];
+  		var satuan = [];
+  		var volume = [];
+  		var wo_number = [];
 
   	for(var idx = 0;idx < this.data_wo.length ; idx++){
   		 id_barang[idx] 	= this.data_wo[idx].id_barang;
-  		 stok[idx] 		    = this.data_wo[idx].stok; 
-  		 satuan[idx] 		= this.data_wo[idx].satuan; 
+  		 stok[idx] 		    = this.data_wo[idx].stok;
+  		 satuan[idx] 		= this.data_wo[idx].satuan;
   		 volume[idx]		= this.modeKeys[idx];
   		 wo_number  		= this.wo;
   	}
@@ -165,7 +166,7 @@ export class HomePage {
   		}
 
   		this.loader.dismiss();
-  	});  
+  	});
   }
 
 
@@ -174,7 +175,7 @@ export class HomePage {
   		content: "please Wait.."
   	})
 
-  	// execute loading 
+  	// execute loading
   	this.loader.present();
   }
 
@@ -182,7 +183,7 @@ export class HomePage {
 	    let prompt = this.alertCtrl.create({
 	      title: 'Response Server',
 	      message: x,
-	      
+
 	      buttons: [
 	        {
 	          text: 'Ok',
@@ -199,7 +200,7 @@ export class HomePage {
       let prompt = this.alertCtrl.create({
         title: 'Warning',
         message: x,
-        
+
         buttons: [
           {
             text: 'Ok',
@@ -222,7 +223,7 @@ export class HomePage {
 
 	onLoad(nik){
 		this.modeKeys = [];
-		console.log(this.modeKeys[0]);  
+		console.log(this.modeKeys[0]);
 
 		this.count_wo = 0 ;
 		this.data_wo = [
@@ -233,12 +234,12 @@ export class HomePage {
 	     this.optionsList.push({ value: 2, text: 'option 2', checked: false });
 
 	     this.loading();
-	    
+
 		  let headers = new Headers({
 	  		'Content-Type' : 'application/x-www-form-urlencoded'
-	  	});	
+	  	});
 
-	  	// create option 
+	  	// create option
 	  	let requestOptions = new RequestOptions({
 	  		headers : headers
 	  	});
@@ -260,7 +261,7 @@ export class HomePage {
 	  		}
 	  		// dismiss loading from loader
 	  		this.loader.dismiss();
-	  	}); 
+	  	});
 	}
 
     checkUpdate(){
@@ -272,7 +273,7 @@ export class HomePage {
 
           var message_news = data.news[0].message;
           var tigger_news  = data.news[0].trigger;
-         
+
           if(Number(this.versi) < Number(versi_now)){
               if(trigger == 'on'){
                 this.showAlert(message);
@@ -353,9 +354,9 @@ export class HomePage {
               var nama_ori = filePath.split("/");
               var index_path  = nama_ori.length;
               if(
-                nama_ori[index_path-1].indexOf(".jpg") > 0  || 
-                nama_ori[index_path-1].indexOf(".jpeg") > 0 || 
-                nama_ori[index_path-1].indexOf(".png") > 0 || 
+                nama_ori[index_path-1].indexOf(".jpg") > 0  ||
+                nama_ori[index_path-1].indexOf(".jpeg") > 0 ||
+                nama_ori[index_path-1].indexOf(".png") > 0 ||
                 nama_ori[index_path-1].indexOf(".PNG") > 0 ||
                 nama_ori[index_path-1].indexOf(".JPG") > 0 ||
                 nama_ori[index_path-1].indexOf(".JPEG") > 0 ||
@@ -371,7 +372,7 @@ export class HomePage {
 
                 this.showPromptApp("File yang di perbolehkan {.jpg, .jpeg, .png, .PNG, .JPG, .JPEG, .pdf, .PDF}");
               }
-              
+
               //this.showAlertNews(this.nama_file);
             })
             .catch(err => {});
@@ -387,11 +388,11 @@ export class HomePage {
         mimeType: "multipart/form-data",
         params : {'fileName': nama}
       };
-     
+
       var url = this.uri_app_amalia+"uploads.php";
       const fileTransfer: FileTransferObject = this.transfer.create();
-    
-     
+
+
       //Use the FileTransfer to upload the image
       fileTransfer.upload(path, url, options).then(data => {
 
@@ -402,6 +403,13 @@ export class HomePage {
 
     fotoAction(i){
       this.takePicture(this.camera.PictureSourceType.CAMERA,i);
+    }
+
+    validateNoWO(val: any) {
+      console.log(val);
+      console.log("asto azza: "+val.value);
+      console.log(this.working_type);
+
     }
 
     public takePicture(sourceType,i) {
@@ -501,16 +509,16 @@ export class HomePage {
            this.loadMenu();
           this.events.publish('menu:tampil', this.pages);
         }
-          
+
       },error =>{
-        
+
       });
-  
+
       this.checkUpdate();
       this.loadNameJabatan();
       this.onLoad(this.nik);
     });
-  
+
   })
   }
 

@@ -8,13 +8,45 @@
 </ion-header>
 
 <ion-content padding>
+  <div style="margin: -10px -20px 0px -20px">
+    <ion-card width="100%">
+      <ion-card-header>
+        <b>Nama Perusahaan</b>
+      </ion-card-header>
+    <ion-card-content>
+      <ion-list radio-group [(ngModel)]="working_type">
+      <table width="100%">
+          <tr>
+            <td><div style="margin-left: 15px"><ion-label ><div style="margin-top: 0px;width: 130px"><ion-radio mark value="ASSURANCE" ></ion-radio>
+                       Assurance</div></ion-label></div></td>
+            <td>
+              <table>
+                <tr>
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  </td>
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <div style="margin-top: -15px;margin-left: 10px"><ion-radio value="NON_ASSURANCE" ></ion-radio>
+                       Non Assurance</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+      </table>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  </div>
+  <br/>
+
   <ion-list>
 
   <ion-item>
     <ion-label fixed>Wo Number :</ion-label>
-    <ion-input [(ngModel)]="wo" type="text"  value="" placeholder="..."></ion-input>
+    <ion-input [(ngModel)]="wo" type="text" (ionBlur)="validateNoWO($event)"  value="" placeholder="..."></ion-input>
   </ion-item>
-  
+
 </ion-list>
 
   <ion-item-group *ngFor="let row of data_wo; let i =index">
@@ -29,14 +61,14 @@
   </ion-item-group>
     <div *ngIf="platform_device =='Android'">
         <ion-item>
-            File   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 
+            File   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
             <button wrap-text ion-button color="danger"  (click)="browse()">Upload</button> {{path}}
             <hr/>
         </ion-item>
   </div>
   <div *ngIf="platform_device =='iOS'">
         <ion-item>
-            File   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 
+            File   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
             <button wrap-text ion-button color="danger"  (click)="fotoAction()">Foto </button> {{path}}
             <hr/>
         </ion-item>
